@@ -26,7 +26,7 @@ export class ActivitiesService {
     try {
       const actQb = this.activityRepo.createQueryBuilder('a');
 
-      actQb.orderBy('activity_id', 'ASC');
+      actQb.orderBy('id', 'ASC');
 
       const activities = await actQb.getMany();
 
@@ -39,7 +39,7 @@ export class ActivitiesService {
   async findOne(activity_id: number) {
     try {
       const activity = await this.activityRepo.findOne({
-        where: { activity_id },
+        where: { id: activity_id },
       });
 
       if (!activity) {
@@ -56,16 +56,10 @@ export class ActivitiesService {
 
   async update(activity_id: number, updateActivityDto: UpdateActivityDto) {
     try {
-      const {
-        activity_id: _,
-        created_at,
-        updated_at,
-        deleted_at,
-        ...updates
-      } = updateActivityDto as Activity;
+      const { email, title } = updateActivityDto;
 
       let activity = await this.activityRepo.findOne({
-        where: { activity_id },
+        where: { id: activity_id },
       });
 
       if (!activity) {
@@ -74,10 +68,15 @@ export class ActivitiesService {
         );
       }
 
-      activity = await this.activityRepo.save(
-        { ...activity, ...updates },
-        { reload: true },
-      );
+      if (title != null) {
+        activity.title = title;
+      }
+
+      if (email != null) {
+        activity.email = email;
+      }
+
+      activity = await this.activityRepo.save(activity, { reload: true });
 
       return activity;
     } catch (error) {
@@ -88,7 +87,7 @@ export class ActivitiesService {
   async remove(activity_id: number) {
     try {
       const activity = await this.activityRepo.findOne({
-        where: { activity_id },
+        where: { id: activity_id },
       });
 
       if (!activity) {
@@ -97,7 +96,7 @@ export class ActivitiesService {
         );
       }
 
-      await this.activityRepo.delete({ activity_id });
+      await this.activityRepo.delete({ id: activity_id });
 
       return activity;
     } catch (error) {

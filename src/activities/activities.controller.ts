@@ -20,11 +20,7 @@ export class ActivitiesController {
     try {
       const res = await this.activitiesService.create(createActivityDto);
 
-      return {
-        status: 'Success',
-        message: 'Success',
-        data: res,
-      };
+      return res;
     } catch (error) {
       throw error;
     }
@@ -35,11 +31,7 @@ export class ActivitiesController {
     try {
       const res = await this.activitiesService.findAll();
 
-      return {
-        status: 'Success',
-        message: 'Success',
-        data: res,
-      };
+      return res;
     } catch (error) {
       console.log('error["status"]', error['status']);
 
@@ -52,11 +44,7 @@ export class ActivitiesController {
     try {
       const res = await this.activitiesService.findOne(+activity_id);
 
-      return {
-        status: 'Success',
-        message: 'Success',
-        data: res,
-      };
+      return res;
     } catch (error) {
       throw error;
     }
@@ -73,11 +61,7 @@ export class ActivitiesController {
         updateActivityDto,
       );
 
-      return {
-        status: 'Success',
-        message: 'Success',
-        data: res,
-      };
+      return res;
     } catch (error) {
       throw error;
     }
@@ -88,11 +72,7 @@ export class ActivitiesController {
     try {
       const res = await this.activitiesService.remove(+activity_id);
 
-      return {
-        status: 'Success',
-        message: 'Success',
-        data: {},
-      };
+      return {};
     } catch (error) {
       throw error;
     }

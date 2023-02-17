@@ -1,27 +1,27 @@
 import {
-  IsBoolean,
+  IsBooleanString,
   IsIn,
-  IsNotEmpty,
-  IsNumber,
+  IsNumberString,
   IsOptional,
   IsString,
 } from 'class-validator';
 import { TODO_PRIORITIES } from 'src/helpers/todos.helper';
 
-export class CreateTodoDto {
+export class FindTodosDto {
   @IsString({ message: 'title cannot be null' })
-  title: string;
-
-  @IsNumber()
-  @IsNotEmpty({ message: 'activity_group_id cannot be null' })
-  activity_group_id: number;
-
-  @IsBoolean()
   @IsOptional()
-  is_active: boolean;
+  title?: string;
+
+  @IsNumberString()
+  @IsOptional()
+  activity_group_id?: number;
 
   @IsString()
   @IsIn(Object.values(TODO_PRIORITIES))
   @IsOptional()
-  priority: string;
+  priority?: string;
+
+  @IsBooleanString()
+  @IsOptional()
+  is_active: boolean;
 }

@@ -10,7 +10,7 @@ import {
 @Entity('activities')
 export class Activity {
   @PrimaryGeneratedColumn('increment')
-  activity_id: number;
+  id: number;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   title: string;
